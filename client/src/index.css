@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .nav-link-style {
+    @apply text-slate-700  hover:text-slate-700/80 duration-200 transition-all;
+  }
+}
