@@ -4,6 +4,18 @@
 
 @layer components {
   .nav-link-style {
-    @apply text-slate-700  hover:text-slate-700/80 duration-200 transition-all;
+    @apply text-slate-700/80 font-semibold  hover:text-slate-700 duration-200 transition-all;
   }
+
+  .text-box-style {
+    @apply border py-3 px-4  rounded-lg focus:outline-none;
+  }
+}
+
+.active {
+  @apply !text-slate-700;
+}
+
+body {
+  background-color: rgb(241, 245, 241);
 }
