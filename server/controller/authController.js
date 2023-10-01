@@ -86,6 +86,7 @@ exports.signin = async (req, res) => {
           id: user._id,
           name: user.name,
           email: user.email,
+          avatar: user.avatar,
         },
         token,
       });
@@ -95,6 +96,72 @@ exports.signin = async (req, res) => {
     return res.status(500).json({
       success: false,
       message: "User not signed in",
+    });
+  }
+};
+
+exports.google = async (req, res) => {
+  try {
+    const { email, name, photo } = req.body;
+    const user = await User.findOne({ email });
+
+    if (user) {
+      const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
+
+      res
+        .cookie("access_token", token, { httpOnly: true })
+        .status(201)
+        .json({
+          success: true,
+          message: "User sign in successfully",
+          user: {
+            id: user._id,
+            name: user.name,
+            email: user.email,
+            avatar: user.avatar,
+          },
+          token,
+        });
+    } else {
+      const generatedPassword =
+        Math.random().toString(36).slice(-8) +
+        Math.random().toString(36).slice(-8);
+
+      const hashedPassword = await bcrypt.hash(generatedPassword, 10);
+      const newUser = await User.create({
+        name,
+        email,
+        password: hashedPassword,
+        avatar: photo,
+      });
+
+      const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET);
+      res.cookie("access_token", token, { httpOnly: true }).status(200).json({
+        success: true,
+        message: "User sign in successfully",
+        newUser,
+      });
+    }
+  } catch (error) {
+    console.log("Error in google  controller");
+    console.log(error);
+    return res.status(500).json({
+      success: false,
+      message: "Google not signed in",
+    });
+  }
+};
+
+exports.signOut = async (req, res) => {
+  try {
+    res.clearCookie("access_token");
+    res.status(200).json("User has been logged out!");
+  } catch (error) {
+    console.log("Error in signout  controller");
+    console.log(error);
+    return res.status(500).json({
+      success: false,
+      message: "User not singed out",
     });
   }
 };

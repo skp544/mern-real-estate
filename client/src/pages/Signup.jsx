@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { createUser } from "../api/auth";
 import { validateUser } from "../utils";
 import toast from "react-hot-toast";
+import { OAuth } from "../components";
 
 const Signup = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -93,6 +94,7 @@ const Signup = () => {
         <button className=" bg-slate-700 text-white py-3 px- 4 rounded-lg uppercase hover:opacity-90 disabled:opacity-80 duration-200 transition-all">
           Sign Up
         </button>
+        <OAuth />
       </form>
       <div className="flex gap-2 mt-4 text-center">
         <p>Have an account?</p>
