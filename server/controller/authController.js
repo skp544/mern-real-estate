@@ -4,9 +4,9 @@ const jwt = require("jsonwebtoken");
 
 exports.signup = async (req, res) => {
   try {
-    const { username, email, password } = req.body;
+    const { name, email, password } = req.body;
 
-    if (!username || !email || !password) {
+    if (!name || !email || !password) {
       return res.status(401).json({
         success: false,
         message: "All fields required",
@@ -25,7 +25,7 @@ exports.signup = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const newUser = await User.create({
-      username,
+      name,
       email,
       password: hashedPassword,
     });
@@ -76,12 +76,19 @@ exports.signin = async (req, res) => {
 
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
 
-    res.cookie("access_token", token, { httpOnly: true }).status(200).json({
-      success: true,
-      message: "User sign in successfully",
-      user,
-      token,
-    });
+    return res
+      .cookie("access_token", token, { httpOnly: true })
+      .status(201)
+      .json({
+        success: true,
+        message: "User sign in successfully",
+        user: {
+          id: user._id,
+          name: user.name,
+          email: user.email,
+        },
+        token,
+      });
   } catch (error) {
     console.log("Error in sign in controller");
     console.log(error);

@@ -4,9 +4,9 @@ export const isValidEmail = (email) => {
   return isValid.test(email);
 };
 
-export const validateUser = ({ password, username, email }) => {
-  if (!username.trim()) {
-    return { ok: false, error: "Username is missing" };
+export const validateUser = ({ password, name, email }) => {
+  if (!name.trim()) {
+    return { ok: false, error: "Name is missing" };
   }
 
   if (!email.trim()) {

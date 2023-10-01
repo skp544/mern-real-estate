@@ -8,14 +8,14 @@ import toast from "react-hot-toast";
 const Signup = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
-    username: "",
+    name: "",
     email: "",
     password: "",
   });
 
   const navigate = useNavigate();
 
-  const { username, email, password } = formData;
+  const { name, email, password } = formData;
 
   const handleChange = (e) => {
     const { value, name } = e.target;
@@ -37,7 +37,7 @@ const Signup = () => {
     }
 
     toast.success(response.message);
-    navigate("/signin");
+    navigate("/sign-in");
   };
 
   return (
@@ -46,12 +46,12 @@ const Signup = () => {
       <form className=" flex flex-col gap-4 " onSubmit={handleSubmit}>
         <input
           type="text"
-          placeholder="Enter Username"
+          placeholder="Enter Name"
           className=" border py-3 px-4 rounded-lg focus:outline-none"
-          id="username"
-          name="username"
+          id="name"
+          name="name"
           onChange={handleChange}
-          value={username}
+          value={name}
           required
         />
         <input
