@@ -1,13 +1,25 @@
-import { useEffect, useRef, useState } from "react";
-import { useSelector } from "react-redux";
 import {
   getDownloadURL,
   getStorage,
   ref,
   uploadBytesResumable,
 } from "firebase/storage";
-import { app } from "../firebase";
+import { useEffect, useRef, useState } from "react";
 import { toast } from "react-hot-toast";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { deleteUser, signOut, updateUser } from "../api/auth";
+import { app } from "../firebase";
+import {
+  deleteUserFailure,
+  deleteUserStart,
+  deleteUserSuccess,
+  signOutUserFailure,
+  signOutUserStart,
+  updateUserFailure,
+  updateUserStart,
+  updateUserSuccess,
+} from "../redux/slices/userSlice";
 
 const Profile = () => {
   const { currentUser } = useSelector((state) => state.user);
@@ -17,6 +29,9 @@ const Profile = () => {
   const [formData, setFormData] = useState({});
 
   const fileRef = useRef(null);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (file) {
@@ -57,11 +72,70 @@ const Profile = () => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
 
+  // const handleDeleteUser = async () => {
+  //   try {
+  //   } catch (error) {
+  //     dispat;
+  //   }
+  // };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    dispatch(updateUserStart());
+
+    const response = await updateUser(
+      currentUser.id || currentUser._id,
+      formData
+    );
+
+    if (!response.success) {
+      dispatch(updateUserFailure(response.message));
+      return toast.error(response.message);
+    }
+
+    dispatch(updateUserSuccess(response.updatedUser));
+    toast.success(response.message);
+  };
+
+  const handleDeleteUser = async () => {
+    dispatch(deleteUserStart());
+
+    const response = await deleteUser();
+
+    if (!response.success) {
+      dispatch(deleteUserFailure(response.message));
+      return toast.error(response.message);
+    }
+
+    dispatch(deleteUserSuccess());
+    toast.success(response.message);
+    localStorage.clear("token");
+    localStorage.removeItem("token");
+
+    navigate("/sign-up");
+  };
+
+  const handleSignOut = async () => {
+    dispatch(signOutUserStart());
+
+    const response = await signOut();
+
+    if (!response.success) {
+      dispatch(signOutUserFailure());
+      return toast.error(response.message);
+    }
+
+    dispatch(deleteUserSuccess());
+    toast.success(response.message);
+    localStorage.clear("token");
+    navigate("/sign-in");
+  };
+
   return (
     <div className="p-3 max-w-lg mx-auto">
       <h1 className=" text-3xl font-semibold text-center my-7 ">Profile</h1>
 
-      <form className="flex flex-col gap-4">
+      <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
         <input
           onChange={(e) => setFile(e.target.files[0])}
           type="file"
@@ -109,7 +183,9 @@ const Profile = () => {
 
       <div className="flex justify-between mt-5 ">
         <span className=" text-red-700 cursor-pointer ">Delete Account</span>
-        <span className=" text-red-700 cursor-pointer">Sign Out</span>
+        <span className=" text-red-700 cursor-pointer" onClick={handleSignOut}>
+          Sign Out
+        </span>
       </div>
     </div>
   );

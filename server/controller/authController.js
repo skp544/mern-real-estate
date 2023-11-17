@@ -155,7 +155,10 @@ exports.google = async (req, res) => {
 exports.signOut = async (req, res) => {
   try {
     res.clearCookie("access_token");
-    res.status(200).json("User has been logged out!");
+    res.status(200).json({
+      success: true,
+      message: "User has been logged out!",
+    });
   } catch (error) {
     console.log("Error in signout  controller");
     console.log(error);
