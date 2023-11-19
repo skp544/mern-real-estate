@@ -68,7 +68,7 @@ export const updateUser = async (id, formData) => {
     const { data } = await client.post(`/user/update/${id}`, formData, {
       headers: {
         Authorization: "Bearer " + token,
-        "Content-Type": "multipart/form-data",
+        "Content-Type": "application/json",
       },
     });
     return data;
@@ -89,7 +89,7 @@ export const deleteUser = async (id) => {
     const { data } = await client.delete(`/user/delete/${id}`, {
       headers: {
         Authorization: "Bearer " + token,
-        "Content-Type": "multipart/form-data",
+        "Content-Type": "application/json",
       },
     });
 

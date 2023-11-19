@@ -12,11 +12,8 @@ exports.verifyToken = async (req, res, next) => {
   }
 
   const jwtToken = token.split("Bearer ")[1];
-
   const decode = jwt.verify(jwtToken, process.env.JWT_SECRET);
-
   const { id } = decode;
-
   const user = await User.findById(id);
 
   if (!user) {
@@ -25,10 +22,7 @@ exports.verifyToken = async (req, res, next) => {
       message: "Invalid Token User not found",
     });
   }
-
   req.user = id;
-
-  console.log(req);
 
   next();
 };
