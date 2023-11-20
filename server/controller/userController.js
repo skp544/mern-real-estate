@@ -13,7 +13,7 @@ exports.updateUser = async (req, res) => {
       });
     }
     if (req.body.password) {
-      req.body.password = bcrypt.hash(password, 10);
+      req.body.password = await bcrypt.hash(req.body.password, 10);
     }
 
     const updatedUser = await User.findByIdAndUpdate(
@@ -93,6 +93,32 @@ exports.getUserListings = async (req, res) => {
     return res.status(500).json({
       success: false,
       message: "Listings not found or fetched",
+    });
+  }
+};
+
+exports.getUser = async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: "User Found!",
+      user,
+    });
+  } catch (error) {
+    console.log("Error in get User controller");
+    console.log(error);
+    return res.status(500).json({
+      success: false,
+      message: "User not found",
     });
   }
 };

@@ -56,6 +56,33 @@ exports.deleteListing = async (req, res) => {
 
 exports.updateListing = async (req, res) => {
   try {
+    const { id } = req.params;
+
+    const listing = await Listing.findById(id);
+
+    if (!listing) {
+      return res.status(404).json({
+        success: false,
+        message: "Listing not found!",
+      });
+    }
+
+    if (req.user !== listing.userRef) {
+      return res.status(404).json({
+        success: false,
+        message: "You cannot update the listing!",
+      });
+    }
+
+    const updatedListing = await Listing.findByIdAndUpdate(id, req.body, {
+      new: true,
+    });
+
+    return res.status(200).json({
+      success: true,
+      message: "Property is Updated",
+      updatedListing,
+    });
   } catch (error) {
     console.log(error);
     return res.status(500).json({
@@ -79,7 +106,7 @@ exports.getListing = async (req, res) => {
     }
 
     return res.status(200).json({
-      success: false,
+      success: true,
       message: "Listing found",
       listing,
     });

@@ -1,5 +1,6 @@
+import Contact from "./Contact";
 import Header from "./Header";
 import OAuth from "./OAuth";
 import PrivateRoute from "./PrivateRoute";
 
-export { Header, OAuth, PrivateRoute };
+export { Contact, Header, OAuth, PrivateRoute };

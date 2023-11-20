@@ -9,6 +9,7 @@ import { toast } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { deleteUser, getUserListings, signOut, updateUser } from "../api/auth";
+import { deleteListing } from "../api/listing";
 import { app } from "../firebase";
 import {
   deleteUserFailure,
@@ -143,7 +144,17 @@ const Profile = () => {
     setUserListing([...res.listings]);
   };
 
-  const handleListingDelete = async () => {};
+  const handleListingDelete = async (id) => {
+    const res = await deleteListing(id);
+
+    if (!res.success) {
+      return toast.error(res.message);
+    }
+
+    toast.success(res.message);
+
+    handleShowListings();
+  };
 
   return (
     <div className="p-3 max-w-lg mx-auto">
@@ -241,7 +252,7 @@ const Profile = () => {
               </Link>
               <div className="flex flex-col item-center">
                 <button
-                  // onClick={() => handleListingDelete(listing._id)}
+                  onClick={() => handleListingDelete(listing._id)}
                   className="text-red-700 uppercase"
                 >
                   Delete
