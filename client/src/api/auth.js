@@ -104,3 +104,24 @@ export const deleteUser = async (id) => {
     return { error: error.message || error };
   }
 };
+
+export const getUserListings = async (id) => {
+  const token = localStorage.getItem("token");
+  try {
+    const { data } = await client(`/user/listings/${id}`, {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    });
+
+    return data;
+  } catch (error) {
+    const { response } = error;
+
+    if (response?.data) {
+      return response?.data;
+    }
+
+    return { error: error.message || error };
+  }
+};

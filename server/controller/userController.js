@@ -1,5 +1,6 @@
 const bcrypt = require("bcrypt");
 const User = require("../model/userModel");
+const Listing = require("../model/listingModel");
 
 exports.updateUser = async (req, res) => {
   try {
@@ -64,6 +65,34 @@ exports.deleteUser = async (req, res) => {
     return res.status(500).json({
       success: false,
       message: "User not deleted!",
+    });
+  }
+};
+
+exports.getUserListings = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    if (req.user !== id) {
+      return res.status(500).json({
+        success: false,
+        message: "Not a user",
+      });
+    }
+
+    const listings = await Listing.find({ userRef: id });
+
+    return res.status(200).json({
+      success: true,
+      message: "Listings Found!",
+      listings,
+    });
+  } catch (error) {
+    console.log("Error in get user lsiting  controller");
+    console.log(error);
+    return res.status(500).json({
+      success: false,
+      message: "Listings not found or fetched",
     });
   }
 };

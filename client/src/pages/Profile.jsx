@@ -8,7 +8,7 @@ import { useEffect, useRef, useState } from "react";
 import { toast } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { deleteUser, signOut, updateUser } from "../api/auth";
+import { deleteUser, getUserListings, signOut, updateUser } from "../api/auth";
 import { app } from "../firebase";
 import {
   deleteUserFailure,
@@ -27,6 +27,8 @@ const Profile = () => {
   const [filePerc, setFilePerc] = useState(0);
   const [fileUploadError, setFileUploadError] = useState(false);
   const [formData, setFormData] = useState({});
+
+  const [userListing, setUserListing] = useState([]);
 
   const fileRef = useRef(null);
 
@@ -131,6 +133,18 @@ const Profile = () => {
     navigate("/sign-in");
   };
 
+  const handleShowListings = async () => {
+    const res = await getUserListings(currentUser._id || currentUser.id);
+
+    if (!res.success) {
+      return toast.error(res.message);
+    }
+
+    setUserListing([...res.listings]);
+  };
+
+  const handleListingDelete = async () => {};
+
   return (
     <div className="p-3 max-w-lg mx-auto">
       <h1 className=" text-3xl font-semibold text-center my-7 ">Profile</h1>
@@ -193,6 +207,53 @@ const Profile = () => {
           Sign Out
         </span>
       </div>
+
+      <button
+        onClick={handleShowListings}
+        className=" text-green-700 w-full  mt-4 border border-green-500  text-center rounded-full px-6 py-2 hover:bg-green-700 transition-all duration-200 hover:text-white"
+      >
+        Show Property
+      </button>
+
+      {userListing && userListing.length > 0 && (
+        <div className=" flex flex-col gap-4">
+          <h2 className="text-center mt-7 text-2xl font-semibold">
+            Your Properties
+          </h2>
+
+          {userListing.map((listing) => (
+            <div
+              className="border border-gray-400 rounded-lg p-3 flex justify-between items-center gap-4"
+              key={listing._id}
+            >
+              <Link to={`/listing/${listing._id}`}>
+                <img
+                  src={listing.imageUrls[0]}
+                  alt="listing cover"
+                  className="h-16 w-16 object-contain"
+                />
+              </Link>
+              <Link
+                className="text-slate-700 font-semibold  hover:underline truncate flex-1"
+                to={`/listing/${listing._id}`}
+              >
+                <p>{listing.name}</p>
+              </Link>
+              <div className="flex flex-col item-center">
+                <button
+                  // onClick={() => handleListingDelete(listing._id)}
+                  className="text-red-700 uppercase"
+                >
+                  Delete
+                </button>
+                <Link to={`/update-listing/${listing._id}`}>
+                  <button className="text-green-700 uppercase">Edit</button>
+                </Link>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };
