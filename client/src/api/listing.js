@@ -106,3 +106,51 @@ export const searchListing = async (searchQuery) => {
     return { error: error.message || error };
   }
 };
+
+export const getOfferListing = async () => {
+  try {
+    const { data } = await client(`/listing/get?offer=true&limit=4`);
+
+    return data;
+  } catch (error) {
+    const { response } = error;
+
+    if (response?.data) {
+      return response?.data;
+    }
+
+    return { error: error.message || error };
+  }
+};
+
+export const getRentListing = async () => {
+  try {
+    const { data } = await client(`/listing/get?type=rent&limit=4`);
+
+    return data;
+  } catch (error) {
+    const { response } = error;
+
+    if (response?.data) {
+      return response?.data;
+    }
+
+    return { error: error.message || error };
+  }
+};
+
+export const getSaleListing = async () => {
+  try {
+    const { data } = await client(`/listing/get?type=sale&limit=4`);
+
+    return data;
+  } catch (error) {
+    const { response } = error;
+
+    if (response?.data) {
+      return response?.data;
+    }
+
+    return { error: error.message || error };
+  }
+};
