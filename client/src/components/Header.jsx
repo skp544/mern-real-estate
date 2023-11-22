@@ -1,12 +1,28 @@
-import { Link, NavLink } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { useSelector } from "react-redux";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 
 const Header = () => {
   const { currentUser } = useSelector((state) => state.user);
-  // console.log(currentUser);
 
-  currentUser;
+  const [searchTerm, setSearchTerm] = useState("");
+  const navigate = useNavigate();
+
+  const handleSubmit = () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    urlParams.set("searchTerm", searchTerm);
+    const searchQuery = urlParams.toString();
+    navigate(`/search?${searchQuery}`);
+  };
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(location.search);
+    const searchTermFromUrl = urlParams.get("searchTerm");
+    if (searchTermFromUrl) {
+      setSearchTerm(searchTermFromUrl);
+    }
+  }, [location.search]);
 
   return (
     <header className="  bg-slate-200 shadow-md ">
@@ -18,7 +34,10 @@ const Header = () => {
           <span className=" text-slate-500">Real</span>
           <span className=" text-slate-700">Estate</span>
         </Link>
-        <form className=" bg-slate-100 rounded-lg flex items-center py-2 px-4">
+        <form
+          className=" bg-slate-100 rounded-lg flex items-center py-2 px-4"
+          onSubmit={handleSubmit}
+        >
           <input
             type="text"
             placeholder="Search..."

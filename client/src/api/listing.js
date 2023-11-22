@@ -90,3 +90,19 @@ export const getListing = async (id) => {
     return { error: error.message || error };
   }
 };
+
+export const searchListing = async (searchQuery) => {
+  try {
+    const { data } = await client(`/listing/get?${searchQuery}`);
+
+    return data;
+  } catch (error) {
+    const { response } = error;
+
+    if (response?.data) {
+      return response?.data;
+    }
+
+    return { error: error.message || error };
+  }
+};
