@@ -25,8 +25,7 @@ import {
 const Profile = () => {
   const { currentUser } = useSelector((state) => state.user);
   const [file, setFile] = useState(undefined);
-  const [filePerc, setFilePerc] = useState(0);
-  const [fileUploadError, setFileUploadError] = useState(false);
+
   const [formData, setFormData] = useState({});
 
   const [userListing, setUserListing] = useState([]);
@@ -55,10 +54,9 @@ const Profile = () => {
       (snapshot) => {
         const progress =
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        setFilePerc(Math.floor(progress));
+        console.log(progress);
       },
       (error) => {
-        setFileUploadError(true);
         toast.error(" Error Image upload (image must be less than 2 mb)");
       },
       () => {
@@ -74,13 +72,6 @@ const Profile = () => {
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
-
-  // const handleDeleteUser = async () => {
-  //   try {
-  //   } catch (error) {
-  //     dispat;
-  //   }
-  // };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -103,7 +94,7 @@ const Profile = () => {
   const handleDeleteUser = async () => {
     dispatch(deleteUserStart());
 
-    const response = await deleteUser();
+    const response = await deleteUser(currentUser.id || currentUser._id);
 
     if (!response.success) {
       dispatch(deleteUserFailure(response.message));
@@ -114,7 +105,6 @@ const Profile = () => {
     toast.success(response.message);
     localStorage.clear("token");
     localStorage.removeItem("token");
-
     navigate("/sign-up");
   };
 
@@ -213,7 +203,12 @@ const Profile = () => {
       </form>
 
       <div className="flex justify-between mt-5 ">
-        <span className=" text-red-700 cursor-pointer ">Delete Account</span>
+        <span
+          className=" text-red-700 cursor-pointer "
+          onClick={handleDeleteUser}
+        >
+          Delete Account
+        </span>
         <span className=" text-red-700 cursor-pointer" onClick={handleSignOut}>
           Sign Out
         </span>

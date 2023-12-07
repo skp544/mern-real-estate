@@ -1,5 +1,6 @@
 import client from "./client";
 
+// create user
 export const createUser = async (userInfo) => {
   try {
     const { data } = await client.post("/auth/signup", userInfo);
@@ -15,6 +16,7 @@ export const createUser = async (userInfo) => {
   }
 };
 
+// sign in
 export const signInUser = async (userInfo) => {
   try {
     const { data } = await client.post("/auth/signin", userInfo);
@@ -30,6 +32,7 @@ export const signInUser = async (userInfo) => {
   }
 };
 
+// sign in google function
 export const signInGoogle = async (userInfo) => {
   try {
     const { data } = await client.post("/auth/google", userInfo);
@@ -45,6 +48,7 @@ export const signInGoogle = async (userInfo) => {
   }
 };
 
+// signout function
 export const signOut = async () => {
   try {
     const { data } = await client("/auth/signout");
@@ -60,9 +64,8 @@ export const signOut = async () => {
   }
 };
 
+// update user function
 export const updateUser = async (id, formData) => {
-  // console.log(formData);
-
   const token = localStorage.getItem("token");
   try {
     const { data } = await client.post(`/user/update/${id}`, formData, {
@@ -83,6 +86,7 @@ export const updateUser = async (id, formData) => {
   }
 };
 
+// delete user function
 export const deleteUser = async (id) => {
   const token = localStorage.getItem("token");
   try {
