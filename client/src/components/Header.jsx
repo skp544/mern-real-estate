@@ -31,8 +31,8 @@ const Header = () => {
           to={"/"}
           className=" font-bold text-sm sm:text-xl flex gap-1 flex-wrap"
         >
-          <span className=" text-slate-500">Real</span>
-          <span className=" text-slate-700">Estate</span>
+          <span className=" text-slate-500">Dream</span>
+          <span className=" text-slate-800">Dwellings</span>
         </Link>
         <form
           className=" bg-slate-100 rounded-lg flex items-center py-2 px-4"
