@@ -191,7 +191,7 @@ const Profile = () => {
           name="password"
           onChange={handleChange}
         />
-        <button className=" bg-slate-700 text-white px-4 py-2 uppercase hover:opacity-95 disabled:opacity-80 rounded-md transition-all duration-200">
+        <button className=" bg-slate-700 text-white px-4 py-2 uppercase hover:opacity-95 disabled:opacity-80 rounded-md transition-all duration-200 ">
           Update
         </button>
         <Link
@@ -204,12 +204,15 @@ const Profile = () => {
 
       <div className="flex justify-between mt-5 ">
         <span
-          className=" text-red-700 cursor-pointer "
+          className=" text-red-700 cursor-pointer hover:underline"
           onClick={handleDeleteUser}
         >
           Delete Account
         </span>
-        <span className=" text-red-700 cursor-pointer" onClick={handleSignOut}>
+        <span
+          className=" text-red-700 cursor-pointer hover:underline"
+          onClick={handleSignOut}
+        >
           Sign Out
         </span>
       </div>
