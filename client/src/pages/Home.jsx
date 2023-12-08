@@ -69,7 +69,7 @@ const Home = () => {
           We have a wide range of properties for you to choose from.
         </div>
         <Link
-          to={"/search"}
+          to={"/"}
           className="text-xs sm:text-sm text-blue-800 font-bold hover:underline"
         >
           Let&apos;s get started...

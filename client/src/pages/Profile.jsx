@@ -8,12 +8,10 @@ import { useEffect, useRef, useState } from "react";
 import { toast } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { deleteUser, getUserListings, signOut, updateUser } from "../api/auth";
+import { getUserListings, signOut, updateUser } from "../api/auth";
 import { deleteListing } from "../api/listing";
 import { app } from "../firebase";
 import {
-  deleteUserFailure,
-  deleteUserStart,
   deleteUserSuccess,
   signOutUserFailure,
   signOutUserStart,
@@ -91,22 +89,22 @@ const Profile = () => {
     toast.success(response.message);
   };
 
-  const handleDeleteUser = async () => {
-    dispatch(deleteUserStart());
+  // const handleDeleteUser = async () => {
+  //   dispatch(deleteUserStart());
 
-    const response = await deleteUser(currentUser.id || currentUser._id);
+  //   const response = await deleteUser(currentUser.id || currentUser._id);
 
-    if (!response.success) {
-      dispatch(deleteUserFailure(response.message));
-      return toast.error(response.message);
-    }
+  //   if (!response.success) {
+  //     dispatch(deleteUserFailure(response.message));
+  //     return toast.error(response.message);
+  //   }
 
-    dispatch(deleteUserSuccess());
-    toast.success(response.message);
-    localStorage.clear("token");
-    localStorage.removeItem("token");
-    navigate("/sign-up");
-  };
+  //   dispatch(deleteUserSuccess());
+  //   toast.success(response.message);
+  //   localStorage.clear("token");
+  //   localStorage.removeItem("token");
+  //   navigate("/sign-up");
+  // };
 
   const handleSignOut = async () => {
     dispatch(signOutUserStart());
@@ -129,6 +127,10 @@ const Profile = () => {
 
     if (!res.success) {
       return toast.error(res.message);
+    }
+
+    if (res.listings === 0 || res.listing === undefined) {
+      return toast.error("You have no properties");
     }
 
     setUserListing([...res.listings]);
@@ -203,10 +205,7 @@ const Profile = () => {
       </form>
 
       <div className="flex justify-between mt-5 ">
-        <span
-          className=" text-red-700 cursor-pointer hover:underline"
-          onClick={handleDeleteUser}
-        >
+        <span className=" text-red-700 cursor-pointer hover:underline">
           Delete Account
         </span>
         <span
