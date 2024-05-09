@@ -35,7 +35,8 @@ const OAuth = () => {
       toast.success(response.message);
       navigate("/");
     } catch (error) {
-      console.log("Could not sign in with google");
+      setLoading(false);
+      return toast.error("Could not sign in with Google, Use another method");
     }
   };
   return (
