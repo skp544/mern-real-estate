@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { useSelector } from "react-redux";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 
 const Header = () => {
   const { currentUser } = useSelector((state) => state.user);
-
+  const location = useLocation(); // Add useLocation hook to access the current location
   const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
 

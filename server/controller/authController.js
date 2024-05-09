@@ -108,7 +108,7 @@ exports.google = async (req, res) => {
     if (user) {
       const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
 
-      res
+      return res
         .cookie("access_token", token, { httpOnly: true })
         .status(201)
         .json({
@@ -136,11 +136,20 @@ exports.google = async (req, res) => {
       });
 
       const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET);
-      res.cookie("access_token", token, { httpOnly: true }).status(200).json({
-        success: true,
-        message: "User sign in successfully",
-        newUser,
-      });
+      return res
+        .cookie("access_token", token, { httpOnly: true })
+        .status(200)
+        .json({
+          success: true,
+          message: "User sign in successfully",
+          user: {
+            name: newUser.name,
+            email: newUser.email,
+            avatar: newUser.avatar,
+            _id: newUser._id,
+          },
+          token,
+        });
     }
   } catch (error) {
     console.log("Error in google  controller");

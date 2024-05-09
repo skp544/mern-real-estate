@@ -18,6 +18,7 @@ const Signin = () => {
     email: "",
     password: "",
   });
+  const [loading, setLoading] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -39,7 +40,10 @@ const Signin = () => {
       return toast.error("Email is invalid!");
     }
 
+    setLoading(true);
+
     const response = await signInUser(formData);
+    setLoading(false);
 
     if (!response.success) {
       dispatch(signInFailure(response.message));
@@ -94,8 +98,11 @@ const Signin = () => {
           </span>
         </div>
 
-        <button className=" bg-slate-700 text-white py-3 px- 4 rounded-lg uppercase hover:opacity-90 disabled:opacity-80 duration-200 transition-all">
-          Sign In
+        <button
+          className=" bg-slate-700 text-white py-3 px- 4 rounded-lg uppercase hover:opacity-90 disabled:opacity-80 duration-200 transition-all"
+          disabled={loading}
+        >
+          {loading ? "Signing..." : "Sign In"}
         </button>
         <OAuth />
       </form>

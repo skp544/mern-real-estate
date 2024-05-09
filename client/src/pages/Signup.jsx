@@ -14,6 +14,7 @@ const Signup = () => {
     password: "",
   });
 
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const { name, email, password } = formData;
@@ -30,8 +31,9 @@ const Signup = () => {
     if (!validation.ok) {
       return toast.error(validation.error);
     }
-
+    setLoading(true);
     const response = await createUser(formData);
+    setLoading(false);
 
     if (!response.success) {
       return toast.error(response.message);
@@ -91,8 +93,11 @@ const Signup = () => {
           </span>
         </div>
 
-        <button className=" bg-slate-700 text-white py-3 px- 4 rounded-lg uppercase hover:opacity-90 disabled:opacity-80 duration-200 transition-all">
-          Sign Up
+        <button
+          className=" bg-slate-700 text-white py-3 px- 4 rounded-lg uppercase hover:opacity-90 disabled:opacity-80 duration-200 transition-all"
+          disabled={loading}
+        >
+          {loading ? "Creating User..." : "Sign Up"}
         </button>
         <OAuth />
       </form>

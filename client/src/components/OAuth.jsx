@@ -5,16 +5,20 @@ import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { signInSuccess } from "../redux/slices/userSlice";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { AiFillGoogleCircle } from "react-icons/ai";
 
 const OAuth = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   const handleGoogleClick = async () => {
     try {
       const provider = new GoogleAuthProvider();
       const auth = getAuth(app);
 
+      setLoading(true);
       const result = await signInWithPopup(auth, provider);
       const response = await signInGoogle({
         name: result.user.displayName,
@@ -22,24 +26,33 @@ const OAuth = () => {
         photo: result.user.photoURL,
       });
 
+      setLoading(false);
       if (!response.success) {
         return toast.error(response.message);
       }
-
       dispatch(signInSuccess(response.user));
-      navigate("/");
+      localStorage.setItem("token", response.token);
       toast.success(response.message);
+      navigate("/");
     } catch (error) {
       console.log("Could not sign in with google");
     }
   };
   return (
     <button
-      className=" bg-red-700 text-white p-3 rounded-lg uppercase hover:opacity-95"
+      className=" bg-red-700 text-white p-3 rounded-lg uppercase hover:opacity-95 flex  items-center justify-center gap-2"
       onClick={handleGoogleClick}
+      disabled={loading}
       type="button"
     >
-      Continue with google
+      {loading ? (
+        "Logging In..."
+      ) : (
+        <>
+          <AiFillGoogleCircle className="w-6 h-6 mr-2 text-white" />
+          Continue with Google
+        </>
+      )}
     </button>
   );
 };

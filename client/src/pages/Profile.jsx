@@ -8,7 +8,7 @@ import { useEffect, useRef, useState } from "react";
 import { toast } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { getUserListings, signOut, updateUser } from "../api/auth";
+import { deleteUser, getUserListings, signOut, updateUser } from "../api/auth";
 import { deleteListing } from "../api/listing";
 import { app } from "../firebase";
 import {
@@ -23,6 +23,7 @@ import {
 const Profile = () => {
   const { currentUser } = useSelector((state) => state.user);
   const [file, setFile] = useState(undefined);
+  const [loading, setLoading] = useState(false);
 
   const [formData, setFormData] = useState({});
 
@@ -89,22 +90,18 @@ const Profile = () => {
     toast.success(response.message);
   };
 
-  // const handleDeleteUser = async () => {
-  //   dispatch(deleteUserStart());
+  const handleDeleteUser = async () => {
+    const response = await deleteUser(currentUser.id || currentUser._id);
 
-  //   const response = await deleteUser(currentUser.id || currentUser._id);
-
-  //   if (!response.success) {
-  //     dispatch(deleteUserFailure(response.message));
-  //     return toast.error(response.message);
-  //   }
-
-  //   dispatch(deleteUserSuccess());
-  //   toast.success(response.message);
-  //   localStorage.clear("token");
-  //   localStorage.removeItem("token");
-  //   navigate("/sign-up");
-  // };
+    if (!response.success) {
+      return toast.error(response.message);
+    }
+    dispatch(deleteUserSuccess());
+    toast.success(response.message);
+    localStorage.clear("token");
+    localStorage.removeItem("token");
+    navigate("/sign-in");
+  };
 
   const handleSignOut = async () => {
     dispatch(signOutUserStart());
@@ -194,7 +191,7 @@ const Profile = () => {
           onChange={handleChange}
         />
         <button className=" bg-slate-700 text-white px-4 py-2 uppercase hover:opacity-95 disabled:opacity-80 rounded-md transition-all duration-200 ">
-          Update
+          {loading ? "Updating..." : "Update"}
         </button>
         <Link
           className="bg-green-700 text-white p-3 rounded-lg uppercase text-center hover:opacity-95"
@@ -205,7 +202,10 @@ const Profile = () => {
       </form>
 
       <div className="flex justify-between mt-5 ">
-        <span className=" text-red-700 cursor-pointer hover:underline">
+        <span
+          className=" text-red-700 cursor-pointer hover:underline"
+          onClick={handleDeleteUser}
+        >
           Delete Account
         </span>
         <span
