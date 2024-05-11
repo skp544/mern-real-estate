@@ -9,15 +9,13 @@ const Header = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
 
-  // const handleSubmit = () => {
-  //   const urlParams = new URLSearchParams(window.location.search);
-  //   urlParams.set("searchTerm", searchTerm);
-  //   const searchQuery = urlParams.toString();
-  //   navigate(`/search?${searchQuery}`);
-  // };
-
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    const urlParams = new URLSearchParams(window.location.search);
+    urlParams.set("searchTerm", searchTerm);
+    const searchQuery = urlParams.toString();
+    navigate(`/search?${searchQuery}`);
   };
 
   useEffect(() => {

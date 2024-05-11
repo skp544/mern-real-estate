@@ -7,6 +7,13 @@ const Contact = ({ listing }) => {
   const [landlord, setLandlord] = useState(null);
   const [message, setMessage] = useState("");
 
+  const handleSendMessageClick = () => {
+    const emailSubject = encodeURIComponent(`Regarding ${listing.name}`);
+    const emailBody = encodeURIComponent(message);
+    const mailtoLink = `mailto:iamskp2001@gmail.com?subject=${emailSubject}&body=${emailBody}`;
+    window.location.href = mailtoLink;
+  };
+
   const onChange = (e) => {
     setMessage(e.target.value);
   };
@@ -44,8 +51,9 @@ const Contact = ({ listing }) => {
           />
 
           <Link
-            to={`mailto:${landlord.email}?subject=Regarding ${listing.name}&body=${message}`}
+            // to={`mailto:iamskp2001@gmail.com?subject=Regarding ${listing.name}&body=${message}`}
             className="bg-slate-700 text-white text-center p-3 uppercase rounded-lg hover:opacity-95"
+            onClick={handleSendMessageClick}
           >
             Send Message
           </Link>

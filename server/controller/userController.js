@@ -49,9 +49,11 @@ exports.deleteUser = async (req, res) => {
     if (req.user !== req.params.id) {
       return res.status(400).json({
         success: false,
-        message: "Account not deleted",
+        message: "Unauthorized!",
       });
     }
+
+    const deleteListings = await Listing.deleteMany({ userRef: req.params.id });
 
     await User.findByIdAndDelete(req.params.id);
     res.clearCookie("access_token");
@@ -64,7 +66,7 @@ exports.deleteUser = async (req, res) => {
     console.log(error);
     return res.status(500).json({
       success: false,
-      message: "User not deleted!",
+      message: "Internal Server Error!",
     });
   }
 };

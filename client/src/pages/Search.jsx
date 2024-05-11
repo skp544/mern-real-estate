@@ -58,8 +58,6 @@ const Search = () => {
 
       const res = await searchListing(searchQuery);
 
-      console.log(res);
-
       if (!res.success) {
         return toast.error(res.message);
       }
@@ -239,7 +237,7 @@ const Search = () => {
               className="border rounded-lg p-3 w-full"
             >
               <option value="regularPrice_desc">Price high to low</option>
-              <option value="regularPrice_asc">Price low to hight</option>
+              <option value="regularPrice_asc">Price low to high</option>
               <option value="createdAt_desc">Latest</option>
               <option value="createdAt_asc">Oldest</option>
             </select>
