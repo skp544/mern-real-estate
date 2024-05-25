@@ -119,6 +119,24 @@ exports.getListing = async (req, res) => {
   }
 };
 
+exports.getAllListings = async (req, res) => {
+  try {
+    const listings = await Listing.find();
+
+    return res.status(200).json({
+      success: true,
+      message: "Data fetched successfully",
+      data: listings,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      success: false,
+      message: "Internal Server Error",
+    });
+  }
+};
+
 exports.getListings = async (req, res) => {
   try {
     const limit = parseInt(req.query.limit) || 4;
@@ -169,6 +187,49 @@ exports.getListings = async (req, res) => {
       success: true,
       message: "All properties fetched",
       listings,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      success: false,
+      message: "Properties not found!",
+    });
+  }
+};
+
+exports.getByLocation = async (req, res) => {
+  try {
+    const location = req.query.location;
+
+    const listings = await Listing.find({
+      address: { $regex: location, $options: "i" },
+    });
+
+    return res.status(200).json({
+      success: true,
+      message: "Data fetched Successfully!",
+      data: listings,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Properties not found!",
+    });
+  }
+};
+
+exports.getByType = async (req, res) => {
+  try {
+    const type = req.query.type;
+
+    const listings = await Listing.find({
+      type: { $regex: type, $options: "i" },
+    });
+
+    return res.status(200).json({
+      success: true,
+      message: "Data fetched Successfully!",
+      data: listings,
     });
   } catch (error) {
     console.log(error);

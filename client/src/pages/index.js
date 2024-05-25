@@ -1,21 +1,6 @@
-import About from "./About";
-import CreateListing from "./CreateListing";
-import Home from "./Home";
-import Listing from "./Listing";
-import Profile from "./Profile";
-import Search from "./Search";
-import Signin from "./Signin";
-import Signup from "./Signup";
-import UpdateListing from "./UpdateListing";
+import Homepage from "./Homepage";
+import PageNotFound from "./PageNotFound/PageNotFound";
+import Properties from "./Properties/Properties";
+import Property from "./Property/Property";
 
-export {
-  About,
-  CreateListing,
-  Home,
-  Listing,
-  Profile,
-  Search,
-  Signin,
-  Signup,
-  UpdateListing,
-};
+export { Homepage, PageNotFound, Properties, Property };

@@ -41,7 +41,7 @@ const OAuth = () => {
   };
   return (
     <button
-      className=" bg-red-700 text-white p-3 rounded-lg uppercase hover:opacity-95 flex  items-center justify-center gap-2"
+      className="px-4 py-3 border  gap-2 bg-white border-slate-200 dark:border-slate-700 rounded-lg  dark:text-slate-200 hover:border-slate-400 dark:hover:border-slate-500 hover:text-slate-900 dark:hover:text-slate-300 hover:shadow transition duration-150 flex justify-center items-center text-black hover:scale-105"
       onClick={handleGoogleClick}
       disabled={loading}
       type="button"
@@ -50,8 +50,13 @@ const OAuth = () => {
         "Logging In..."
       ) : (
         <>
-          <AiFillGoogleCircle className="w-6 h-6 mr-2 text-white" />
-          Continue with Google
+          <img
+            className="w-6 h-6"
+            src="https://www.svgrepo.com/show/475656/google-color.svg"
+            loading="lazy"
+            alt="google logo"
+          />
+          <span className=" text-black uppercase">Login with Google</span>
         </>
       )}
     </button>

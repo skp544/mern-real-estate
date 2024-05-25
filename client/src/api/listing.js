@@ -154,3 +154,51 @@ export const getSaleListing = async () => {
     return { error: error.message || error };
   }
 };
+
+export const getAllListings = async () => {
+  try {
+    const { data } = await client(`/listing/getall`);
+
+    return data;
+  } catch (error) {
+    const { response } = error;
+
+    if (response?.data) {
+      return response?.data;
+    }
+
+    return { error: error.message || error };
+  }
+};
+
+export const getByLocation = async (location) => {
+  try {
+    const { data } = await client(`/listing/get-location?location=${location}`);
+
+    return data;
+  } catch (error) {
+    const { response } = error;
+
+    if (response?.data) {
+      return response?.data;
+    }
+
+    return { error: error.message || error };
+  }
+};
+
+export const getByType = async (type) => {
+  try {
+    const { data } = await client(`/listing/get-type?type=${type}`);
+
+    return data;
+  } catch (error) {
+    const { response } = error;
+
+    if (response?.data) {
+      return response?.data;
+    }
+
+    return { error: error.message || error };
+  }
+};

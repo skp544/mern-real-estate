@@ -1,57 +1,43 @@
+import "./App.css";
+import { Homepage, PageNotFound, Properties, Property } from "./pages";
 import { Route, Routes } from "react-router-dom";
-import { Header, PrivateRoute } from "./components";
-import {
-  About,
-  CreateListing,
-  Home,
-  Listing,
-  Profile,
-  Search,
-  Signin,
-  Signup,
-  UpdateListing,
-} from "./pages";
-import Layout from "./layout/Layout";
+import { Layout } from "./components";
+
+import Signin from "./pages/Signin";
+import Signup from "./pages/Signup";
+import Profile from "./pages/Profile";
+import CreateProperty from "./pages/CreateProperty";
+import SearchPropertiesForLocation from "./pages/SearchPropertiesForLocation";
 
 const App = () => {
+  // const queryClient = new QueryClient();
+  // const [userDetails, setUserDetails] = useState({
+  //   favorites: [],
+  //   booking: [],
+  //   token: null,
+  // });
+
   return (
-    <>
-      <Header />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/sign-in" element={<Signin />} />
-        <Route path="/sign-up" element={<Signup />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/search" element={<Search />} />
-        <Route path="/listing/:listingId" element={<Listing />} />
-        <Route element={<PrivateRoute />}>
-          <Route
-            path="/profile"
-            element={
-              <Layout>
-                <Profile />
-              </Layout>
-            }
-          />
-          <Route
-            path="/create-listing"
-            element={
-              <Layout>
-                <CreateListing />
-              </Layout>
-            }
-          />
-          <Route
-            path="/update-listing/:listingId"
-            element={
-              <Layout>
-                <UpdateListing />
-              </Layout>
-            }
-          />
+    <Routes>
+      <Route element={<Layout />}>
+        <Route path="/" element={<Homepage />} />
+        <Route path="/profile" element={<Profile />} />
+
+        <Route path="/create-property" element={<CreateProperty />} />
+        <Route
+          path="/properites/location"
+          element={<SearchPropertiesForLocation />}
+        />
+        <Route path="/properties">
+          <Route index element={<Properties />} />
+          <Route path=":id" element={<Property />} />
         </Route>
-      </Routes>
-    </>
+      </Route>
+
+      <Route path="*" element={<PageNotFound />} />
+      <Route path="/sign-in" element={<Signin />} />
+      <Route path="/sign-up" element={<Signup />} />
+    </Routes>
   );
 };
 

@@ -1,0 +1,56 @@
+.property-container {
+  gap: 2rem;
+  position: relative;
+
+  .like {
+    position: absolute;
+    top: 3rem;
+    right: 3rem;
+    cursor: pointer;
+  }
+
+  & > img {
+    align-self: center;
+    max-height: 35rem;
+    width: 100%;
+    border-radius: 1rem;
+    object-fit: cover;
+  }
+}
+
+.property-details {
+  width: 100%;
+  gap: 2rem;
+  justify-content: space-between;
+
+  & > div {
+    flex: 1;
+    gap: 1.5rem;
+  }
+
+  .left {
+    .head {
+      justify-content: space-between;
+      width: 100%;
+    }
+  }
+
+  .button {
+    margin-top: 1rem;
+    width: 100%;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+}
+
+.facilities {
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  padding: 1rem;
+}
+
+.facility {
+  gap: 0.5rem;
+}

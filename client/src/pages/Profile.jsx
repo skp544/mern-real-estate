@@ -19,6 +19,7 @@ import {
   updateUserStart,
   updateUserSuccess,
 } from "../redux/slices/userSlice";
+import { FaCamera } from "react-icons/fa";
 
 const Profile = () => {
   const { currentUser } = useSelector((state) => state.user);
@@ -147,7 +148,11 @@ const Profile = () => {
 
   return (
     <div className="p-3 max-w-lg mx-auto">
-      <h1 className=" text-3xl font-semibold text-center my-7 ">Profile</h1>
+      <h1 className=" text-3xl font-semibold text-center my-7 ">
+        User Profile
+      </h1>
+
+      <div></div>
 
       <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
         <input
@@ -157,12 +162,20 @@ const Profile = () => {
           hidden
           accept="image/*"
         />
-        <img
-          src={formData.avatar || currentUser.avatar}
-          alt="profile"
-          className=" rounded-full h-24 w-24 object-cover cursor-pointer self-center mt-2"
-          onClick={() => fileRef.current.click()}
-        />
+        <div className=" relative self-center flex items-end justify-center">
+          <img
+            src={formData.avatar || currentUser.avatar}
+            alt="profile"
+            className=" rounded-full h-24 w-24 object-cover cursor-pointer self-center mt-2"
+            onClick={() => fileRef.current.click()}
+          />
+          <span className=" absolute ">
+            <FaCamera
+              onClick={() => fileRef.current.click()}
+              className=" cursor-pointer"
+            />
+          </span>
+        </div>
         <input
           type="text"
           placeholder="Enter Name"
