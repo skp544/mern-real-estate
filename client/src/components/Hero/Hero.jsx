@@ -29,7 +29,7 @@ const Hero = () => {
                 type: "spring",
               }}
             >
-              Discover <br /> Most Suitable <br /> Propery
+              Discover <br /> Most Suitable <br /> Property
             </motion.h1>
           </div>
           <div className="flexColStart secondaryText hero-desc">
