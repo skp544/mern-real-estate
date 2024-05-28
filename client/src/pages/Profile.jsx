@@ -147,7 +147,7 @@ const Profile = () => {
   };
 
   return (
-    <div className="p-3 max-w-lg mx-auto">
+    <div className="p-3 max-w-lg mx-auto ">
       <h1 className=" text-3xl font-semibold text-center my-7 ">
         User Profile
       </h1>
@@ -203,12 +203,12 @@ const Profile = () => {
           name="password"
           onChange={handleChange}
         />
-        <button className=" bg-slate-700 text-white px-4 py-2 uppercase hover:opacity-95 disabled:opacity-80 rounded-md transition-all duration-200 ">
+        <button className=" bg-blue-secondary text-white px-4 py-2 uppercase hover:opacity-95 disabled:opacity-80 rounded-full transition-all duration-200 hover:scale-105">
           {loading ? "Updating..." : "Update"}
         </button>
         <Link
-          className="bg-green-700 text-white p-3 rounded-lg uppercase text-center hover:opacity-95"
-          to={"/create-listing"}
+          className="bg-amber-300 text-white p-3 rounded-full uppercase text-center hover:opacity-95 transition-all duration-200 hover:scale-105"
+          to={"/create-property"}
         >
           Create Listing
         </Link>
@@ -216,13 +216,13 @@ const Profile = () => {
 
       <div className="flex justify-between mt-5 ">
         <span
-          className=" text-red-700 cursor-pointer hover:underline"
+          className=" bg-red-700 py-1 px-3 rounded-md duration-200 transition-all text-white cursor-pointer hover:scale-110"
           onClick={handleDeleteUser}
         >
           Delete Account
         </span>
         <span
-          className=" text-red-700 cursor-pointer hover:underline"
+          className="bg-red-500  text-white  cursor-pointer  py-1 px-3 rounded-md duration-200 transition-all hover:scale-110"
           onClick={handleSignOut}
         >
           Sign Out
@@ -231,7 +231,7 @@ const Profile = () => {
 
       <button
         onClick={handleShowListings}
-        className=" text-green-700 w-full  mt-4 border border-green-500  text-center rounded-full px-6 py-2 hover:bg-green-700 transition-all duration-200 hover:text-white"
+        className=" text-blue-secondary w-full  mt-4 border border-blue-secondary  text-center rounded-full px-6 py-2 hover:bg-blue-secondary transition-all duration-200 hover:text-white hover:scale-105"
       >
         Show Property
       </button>

@@ -2,10 +2,13 @@ import { useState } from "react";
 import "./header.css";
 import { BiMenuAltRight } from "react-icons/bi";
 import OutsideClickHandler from "react-outside-click-handler";
-import { Link, NavLink, useNavigate, useLocation } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 
 import { ProfileMenu } from "../";
 import { useDispatch, useSelector } from "react-redux";
+import { signOut } from "../../api/auth";
+import toast from "react-hot-toast";
+import { deleteUserSuccess } from "../../redux/slices/userSlice";
 
 const Header = () => {
   const { currentUser } = useSelector((state) => state.user);
@@ -48,13 +51,17 @@ const Header = () => {
           <div className="flexCenter h-menu" style={getMenuStyles(menuOpened)}>
             <Link
               to={`/properties?type=buy`}
-              className={isBuyActive ? "active" : ""}
+              className={`${
+                isBuyActive ? "active" : ""
+              } hover:text-blue-primary duration-200 transition-all`}
             >
               Properties To Buy
             </Link>
             <Link
               to={`/properties?type=rent`}
-              className={isRentActive ? "active" : ""}
+              className={`${
+                isRentActive ? "active" : ""
+              } hover:text-blue-primary duration-200 transition-all`}
             >
               Properties To Rent
             </Link>

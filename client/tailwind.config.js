@@ -9,6 +9,7 @@ export default {
         "blue-primary": "#1f3e72",
         "blue-secondary": "#4066ff",
         "blue-tertiary": "#eeeeff",
+        "orange-primary": "#ff922d",
       },
     },
   },
