@@ -4,11 +4,11 @@ import { Footer, Header } from "../";
 const Layout = () => {
   return (
     <>
-      <div>
+      <div className="relative bg-fuchsia-50 h-full w-full">
         <Header />
         <Outlet />
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 };

@@ -97,7 +97,7 @@ const Profile = () => {
     if (!response.success) {
       return toast.error(response.message);
     }
-    dispatch(deleteUserSuccess());
+
     toast.success(response.message);
     localStorage.clear("token");
     localStorage.removeItem("token");
@@ -105,16 +105,12 @@ const Profile = () => {
   };
 
   const handleSignOut = async () => {
-    dispatch(signOutUserStart());
-
     const response = await signOut();
 
     if (!response.success) {
-      dispatch(signOutUserFailure());
       return toast.error(response.message);
     }
 
-    dispatch(deleteUserSuccess());
     toast.success(response.message);
     localStorage.clear("token");
     navigate("/sign-in");
@@ -147,134 +143,139 @@ const Profile = () => {
   };
 
   return (
-    <div className="p-3 max-w-lg mx-auto ">
-      <h1 className=" text-3xl font-semibold text-center my-7 ">
-        User Profile
-      </h1>
+    <div className="relative flex justify-center items-center min-h-screen bg-gray-900">
+      <img
+        src="/house.jpg"
+        alt="home"
+        className="absolute inset-0 object-cover w-full h-full opacity-40"
+      />
+      <div className="absolute inset-0 bg-black bg-opacity-50"></div>
+      <div className="relative p-6 bg-white/20 rounded-lg shadow-lg max-w-lg w-full backdrop-blur-md">
+        <h1 className="text-3xl font-semibold text-center my-7 text-white">
+          User Profile
+        </h1>
 
-      <div></div>
-
-      <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
-        <input
-          onChange={(e) => setFile(e.target.files[0])}
-          type="file"
-          ref={fileRef}
-          hidden
-          accept="image/*"
-        />
-        <div className=" relative self-center flex items-end justify-center">
-          <img
-            src={formData.avatar || currentUser.avatar}
-            alt="profile"
-            className=" rounded-full h-24 w-24 object-cover cursor-pointer self-center mt-2"
-            onClick={() => fileRef.current.click()}
+        <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
+          <input
+            onChange={(e) => setFile(e.target.files[0])}
+            type="file"
+            ref={fileRef}
+            hidden
+            accept="image/*"
           />
-          <span className=" absolute ">
-            <FaCamera
+          <div className="relative self-center flex items-end justify-center">
+            <img
+              src={formData.avatar || currentUser.avatar}
+              alt="profile"
+              className="rounded-full h-24 w-24 object-cover cursor-pointer self-center mt-2"
               onClick={() => fileRef.current.click()}
-              className=" cursor-pointer"
             />
+            <span className="absolute">
+              <FaCamera
+                onClick={() => fileRef.current.click()}
+                className="cursor-pointer"
+              />
+            </span>
+          </div>
+          <input
+            type="text"
+            placeholder="Enter Name"
+            className="text-box-style"
+            id="name"
+            name="name"
+            onChange={handleChange}
+            defaultValue={currentUser.name}
+          />
+          <input
+            type="email"
+            placeholder="Enter Email"
+            className="text-box-style"
+            id="email"
+            name="email"
+            defaultValue={currentUser.email}
+            onChange={handleChange}
+          />
+          <input
+            type="password"
+            placeholder="******"
+            className="text-box-style"
+            id="password"
+            name="password"
+            onChange={handleChange}
+          />
+          <button className="bg-blue-500 text-white px-4 py-2 uppercase hover:opacity-95 disabled:opacity-80 rounded-full transition-all duration-200 hover:scale-105">
+            {loading ? "Updating..." : "Update"}
+          </button>
+          <Link
+            className="bg-amber-300 text-white p-3 rounded-full uppercase text-center hover:opacity-95 transition-all duration-200 hover:scale-105"
+            to={"/create-property"}
+          >
+            Create Listing
+          </Link>
+        </form>
+
+        <div className="flex justify-between mt-5">
+          <span
+            className="bg-red-700 py-1 px-3 rounded-md duration-200 transition-all text-white cursor-pointer hover:scale-110"
+            onClick={handleDeleteUser}
+          >
+            Delete Account
+          </span>
+          <span
+            className="bg-red-500 text-white cursor-pointer py-1 px-3 rounded-md duration-200 transition-all hover:scale-110"
+            onClick={handleSignOut}
+          >
+            Sign Out
           </span>
         </div>
-        <input
-          type="text"
-          placeholder="Enter Name"
-          className="text-box-style"
-          id="name"
-          name="name"
-          onChange={handleChange}
-          defaultValue={currentUser.name}
-          // value={name}
-        />
-        <input
-          type="email"
-          placeholder="Enter Email"
-          className="text-box-style"
-          id="email"
-          name="email"
-          defaultValue={currentUser.email}
-          onChange={handleChange}
-        />
-        <input
-          type="password"
-          placeholder="******"
-          className="text-box-style"
-          id="password"
-          name="password"
-          onChange={handleChange}
-        />
-        <button className=" bg-blue-secondary text-white px-4 py-2 uppercase hover:opacity-95 disabled:opacity-80 rounded-full transition-all duration-200 hover:scale-105">
-          {loading ? "Updating..." : "Update"}
+
+        <button
+          onClick={() => navigate("/user-property")}
+          className="text-blue-500 w-full mt-4 border border-blue-500 text-center rounded-full px-6 py-2 hover:bg-blue-500 transition-all duration-200 hover:text-white hover:scale-105"
+        >
+          Show Property
         </button>
-        <Link
-          className="bg-amber-300 text-white p-3 rounded-full uppercase text-center hover:opacity-95 transition-all duration-200 hover:scale-105"
-          to={"/create-property"}
-        >
-          Create Listing
-        </Link>
-      </form>
 
-      <div className="flex justify-between mt-5 ">
-        <span
-          className=" bg-red-700 py-1 px-3 rounded-md duration-200 transition-all text-white cursor-pointer hover:scale-110"
-          onClick={handleDeleteUser}
-        >
-          Delete Account
-        </span>
-        <span
-          className="bg-red-500  text-white  cursor-pointer  py-1 px-3 rounded-md duration-200 transition-all hover:scale-110"
-          onClick={handleSignOut}
-        >
-          Sign Out
-        </span>
-      </div>
+        {userListing && userListing.length > 0 && (
+          <div className="flex flex-col gap-4">
+            <h2 className="text-center mt-7 text-2xl font-semibold">
+              Your Properties
+            </h2>
 
-      <button
-        onClick={handleShowListings}
-        className=" text-blue-secondary w-full  mt-4 border border-blue-secondary  text-center rounded-full px-6 py-2 hover:bg-blue-secondary transition-all duration-200 hover:text-white hover:scale-105"
-      >
-        Show Property
-      </button>
-
-      {userListing && userListing.length > 0 && (
-        <div className=" flex flex-col gap-4">
-          <h2 className="text-center mt-7 text-2xl font-semibold">
-            Your Properties
-          </h2>
-
-          {userListing.map((listing) => (
-            <div
-              className="border border-gray-400 rounded-lg p-3 flex justify-between items-center gap-4"
-              key={listing._id}
-            >
-              <Link to={`/listing/${listing._id}`}>
-                <img
-                  src={listing.imageUrls[0]}
-                  alt="listing cover"
-                  className="h-16 w-16 object-contain"
-                />
-              </Link>
-              <Link
-                className="text-slate-700 font-semibold  hover:underline truncate flex-1"
-                to={`/listing/${listing._id}`}
+            {userListing.map((listing) => (
+              <div
+                className="border border-gray-400 rounded-lg p-3 flex justify-between items-center gap-4"
+                key={listing._id}
               >
-                <p>{listing.name}</p>
-              </Link>
-              <div className="flex flex-col item-center">
-                <button
-                  onClick={() => handleListingDelete(listing._id)}
-                  className="text-red-700 uppercase"
-                >
-                  Delete
-                </button>
-                <Link to={`/update-listing/${listing._id}`}>
-                  <button className="text-green-700 uppercase">Edit</button>
+                <Link to={`/listing/${listing._id}`}>
+                  <img
+                    src={listing.imageUrls[0]}
+                    alt="listing cover"
+                    className="h-16 w-16 object-contain"
+                  />
                 </Link>
+                <Link
+                  className="text-slate-700 font-semibold hover:underline truncate flex-1"
+                  to={`/listing/${listing._id}`}
+                >
+                  <p>{listing.name}</p>
+                </Link>
+                <div className="flex flex-col item-center">
+                  <button
+                    onClick={() => handleListingDelete(listing._id)}
+                    className="text-red-700 uppercase"
+                  >
+                    Delete
+                  </button>
+                  <Link to={`/update-listing/${listing._id}`}>
+                    <button className="text-green-700 uppercase">Edit</button>
+                  </Link>
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
-      )}
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 };

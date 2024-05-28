@@ -8,7 +8,12 @@ const ProfileMenu = ({ user, logout }) => {
   return (
     <Menu>
       <Menu.Target>
-        <Avatar src={user?.avatar} alt="user image" radius={"xl"} />
+        <Avatar
+          src={user?.avatar}
+          alt="user image"
+          radius={"xl"}
+          className="duration-200 transition-all hover:scale-110"
+        />
       </Menu.Target>
 
       <Menu.Dropdown>
@@ -16,7 +21,6 @@ const ProfileMenu = ({ user, logout }) => {
         <Menu.Item onClick={() => navigate("/create-property")}>
           Add Property
         </Menu.Item>
-        <Menu.Item>Bookings</Menu.Item>
 
         <Menu.Item
           onClick={() => {

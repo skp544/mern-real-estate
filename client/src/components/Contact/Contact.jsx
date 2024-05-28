@@ -3,6 +3,7 @@ import { MdCall } from "react-icons/md";
 import { BsFillChatDotsFill } from "react-icons/bs";
 import { HiChatBubbleBottomCenter } from "react-icons/hi2";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 const Contact = () => {
   return (
@@ -42,7 +43,9 @@ const Contact = () => {
                   </div>
                 </div>
 
-                <div className="flexCenter button">Call Now</div>
+                <Link to={"tel:9350163368"} className="flexCenter button">
+                  Call Now
+                </Link>
               </motion.div>
 
               {/* mode 2 */}
@@ -62,32 +65,17 @@ const Contact = () => {
                   </div>
                 </div>
 
-                <div className="flexCenter button">Chat Now</div>
+                <Link
+                  to={"https://wa.me/9350163368"}
+                  className="flexCenter button"
+                >
+                  Chat Now
+                </Link>
               </motion.div>
             </div>
             {/* row 2 */}
 
             <div className="flexColStart row">
-              {/* mode 3 */}
-              <motion.div
-                className="flexColCenter mode"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.9, duration: 0.5 }}
-              >
-                <div className="flexStart">
-                  <div className="flexCenter icon">
-                    <BsFillChatDotsFill size={25} />
-                  </div>
-                  <div className="flexColStart detail">
-                    <span className="primaryText">Video Call </span>
-                    <span className="secondaryText"> 021 123 145 14</span>
-                  </div>
-                </div>
-
-                <div className="flexCenter button">Video Call Now</div>
-              </motion.div>
-
               {/* mode 4 */}
               <motion.div
                 className="flexColCenter mode"
@@ -105,7 +93,12 @@ const Contact = () => {
                   </div>
                 </div>
 
-                <div className="flexCenter button">Message Now</div>
+                <Link
+                  to={"mailto:dreamdwellings@info.com"}
+                  className="flexCenter button"
+                >
+                  Message Now
+                </Link>
               </motion.div>
             </div>
           </div>

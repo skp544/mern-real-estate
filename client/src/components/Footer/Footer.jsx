@@ -3,7 +3,7 @@ import "./footer.css";
 
 const Footer = () => {
   return (
-    <footer className="f-wrapper bg-black-primary text-white  w-full mt-8">
+    <footer className="f-wrapper bg-black-primary text-white absolute bottom-0 w-full mt-8">
       <div className=" innerWidth flexCenter f-container">
         {/* left */}
         <div className="flexColStart f-left">

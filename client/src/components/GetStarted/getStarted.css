@@ -1,10 +1,17 @@
 .inner-container {
   gap: 1.5rem;
-  background: #4161df;
+  /* background: #4161df; */
   padding: 2rem;
   border-radius: 10px;
   border: 6px solid #5d77d6;
   text-align: center;
+  /* background: rgb(99,125,228); */
+  background: linear-gradient(
+    90deg,
+    rgba(99, 125, 228, 0.9697128851540616) 0%,
+    rgba(40, 40, 204, 1) 52%,
+    rgba(6, 33, 140, 1) 100%
+  );
 
   .primaryText {
     color: #fff;

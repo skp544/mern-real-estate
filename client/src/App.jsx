@@ -8,15 +8,9 @@ import Signup from "./pages/Signup";
 import Profile from "./pages/Profile";
 import CreateProperty from "./pages/CreateProperty";
 import SearchPropertiesForLocation from "./pages/SearchPropertiesForLocation";
+import ShowUserProperty from "./pages/ShowUserProperty";
 
 const App = () => {
-  // const queryClient = new QueryClient();
-  // const [userDetails, setUserDetails] = useState({
-  //   favorites: [],
-  //   booking: [],
-  //   token: null,
-  // });
-
   return (
     <Routes>
       <Route element={<Layout />}>
@@ -28,6 +22,7 @@ const App = () => {
           path="/properites/location"
           element={<SearchPropertiesForLocation />}
         />
+        <Route path="/user-property" element={<ShowUserProperty />} />
         <Route path="/properties">
           <Route index element={<Properties />} />
           <Route path=":id" element={<Property />} />

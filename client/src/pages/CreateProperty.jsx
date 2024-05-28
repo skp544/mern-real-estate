@@ -373,7 +373,7 @@ const CreateProperty = () => {
 
           <button
             disabled={loading || uploading}
-            className="p-3 bg-slate-700 text-white rounded-lg uppercase hover:opacity-95 disabled:opacity-80"
+            className="p-3 bg-blue-secondary text-white rounded-lg uppercase hover:scale-110 disabled:opacity-80 duration-200 transition-all"
           >
             {loading ? "Creating..." : "Create listing"}
           </button>

@@ -2,13 +2,10 @@ import { useState } from "react";
 import "./header.css";
 import { BiMenuAltRight } from "react-icons/bi";
 import OutsideClickHandler from "react-outside-click-handler";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { Link, NavLink, useNavigate, useLocation } from "react-router-dom";
 
 import { ProfileMenu } from "../";
 import { useDispatch, useSelector } from "react-redux";
-import { signOut } from "../../api/auth";
-import toast from "react-hot-toast";
-import { deleteUserSuccess } from "../../redux/slices/userSlice";
 
 const Header = () => {
   const { currentUser } = useSelector((state) => state.user);

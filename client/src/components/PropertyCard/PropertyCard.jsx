@@ -4,15 +4,17 @@ import { Link } from "react-router-dom";
 const PropertyCard = ({ listing }) => {
   return (
     <div className="bg-white shadow-md hover:shadow-lg transition-all duration-200 rounded-lg w-full sm:w-72 hover:scale-105 ">
-      <Link to={`/properties/${listing?._id}`}>
-        <img
-          src={
-            listing?.imageUrls[0] ||
-            "https://53.fs1.hubspotusercontent-na1.net/hub/53/hubfs/Sales_Blog/real-estate-business-compressor.jpg?width=595&height=400&name=real-estate-business-compressor.jpg"
-          }
-          alt="listing cover"
-          className="h-80 sm:h-56 w-full object-cover transition-transform duration-300 transform hover:scale-105"
-        />
+      <Link to={`/properties/${listing?._id}`} className="overflow-hidden">
+        <div className="overflow-hidden rounded-md">
+          <img
+            src={
+              listing?.imageUrls[0] ||
+              "https://53.fs1.hubspotusercontent-na1.net/hub/53/hubfs/Sales_Blog/real-estate-business-compressor.jpg?width=595&height=400&name=real-estate-business-compressor.jpg"
+            }
+            alt="listing cover"
+            className="h-80 sm:h-56 w-full object-cover transition-transform duration-300 transform hover:scale-105 rounded-md"
+          />
+        </div>
         <div className="p-3 flex flex-col gap-2">
           <p className="truncate text-lg font-semibold text-slate-700">
             {listing?.name}

@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import "./getStarted.css";
+import { Link } from "react-router-dom";
 
 const GetStarted = () => {
   return (
@@ -18,7 +19,7 @@ const GetStarted = () => {
           </span>
 
           <button className="button">
-            <a href="mailto:iamskp2001@gmail.com">Get Started</a>
+            <Link to="/properties">Get Started</Link>
           </button>
         </motion.div>
       </div>

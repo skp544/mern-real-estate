@@ -20,7 +20,7 @@ const Residencies = () => {
         throw new Error("Internal Server Error");
       }
 
-      setData(response.data);
+      setData([...response?.listings]);
     } catch (error) {
       toast.error(error.message);
     } finally {

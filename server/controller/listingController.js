@@ -126,7 +126,7 @@ exports.getAllListings = async (req, res) => {
     return res.status(200).json({
       success: true,
       message: "Data fetched successfully",
-      data: listings,
+      listings,
     });
   } catch (error) {
     console.log(error);
@@ -171,7 +171,9 @@ exports.getListings = async (req, res) => {
 
     const order = req.query.order || "desc";
 
-    const listings = await Listing.find({
+    let listings;
+
+    listings = await Listing.find({
       name: { $regex: searchTerm, $options: "i" },
       offer,
       furnished,
@@ -182,12 +184,30 @@ exports.getListings = async (req, res) => {
       .limit(limit)
       .skip(startIndex);
 
-    // const listings = await Listing.find();
+    if (listings.length > 0) {
+      return res.status(200).json({
+        success: true,
+        message: "All properties fetched",
+        listings,
+      });
+    }
+    listings = await Listing.find({
+      address: { $regex: searchTerm, $options: "i" },
+      offer,
+      furnished,
+      parking,
+      type,
+    })
+      .sort({ [sort]: order })
+      .limit(limit)
+      .skip(startIndex);
     return res.status(200).json({
       success: true,
       message: "All properties fetched",
       listings,
     });
+
+    // const listings = await Listing.find();
   } catch (error) {
     console.log(error);
     return res.status(500).json({
