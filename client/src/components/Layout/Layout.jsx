@@ -3,13 +3,13 @@ import { Footer, Header } from "../";
 
 const Layout = () => {
   return (
-    <>
-      <div className="relative bg-fuchsia-50 h-full w-full">
-        <Header />
+    <div className="flex flex-col min-h-screen">
+      <Header />
+      <main className="flex-grow bg-fuchsia-50">
         <Outlet />
-      </div>
-      {/* <Footer /> */}
-    </>
+      </main>
+      <Footer />
+    </div>
   );
 };
 

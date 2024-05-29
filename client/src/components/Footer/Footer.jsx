@@ -1,36 +1,70 @@
 import { Link } from "react-router-dom";
-import "./footer.css";
+import { motion } from "framer-motion";
 
 const Footer = () => {
   return (
-    <footer className="f-wrapper bg-black-primary text-white absolute bottom-0 w-full mt-8">
-      <div className=" innerWidth flexCenter f-container">
-        {/* left */}
-        <div className="flexColStart f-left">
+    <motion.footer
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+      className="bg-gray-900 text-white py-6"
+    >
+      <div className="container mx-auto flex flex-col md:flex-row justify-between items-start px-6">
+        {/* Left */}
+        <motion.div
+          initial={{ x: -100 }}
+          animate={{ x: 0 }}
+          transition={{ duration: 0.5 }}
+          className="mb-6 md:mb-0"
+        >
           <Link to={"/"}>
-            <img src="./home1.png" alt="" width={120} />
+            <img src="./home1.png" alt="Home" className="w-32" />
           </Link>
+        </motion.div>
 
-          {/* <span className="secondaryText">
-            Our vision is to make all people <br />
-            the best place to live for them.
-          </span> */}
-        </div>
+        {/* Right */}
+        <motion.div
+          initial={{ x: 100 }}
+          animate={{ x: 0 }}
+          transition={{ duration: 0.5 }}
+          className="flex flex-col items-start"
+        >
+          <span className="text-lg font-bold mb-2">Information</span>
+          <span className="text-gray-400 mb-4">145 New York, FL 5467, USA</span>
 
-        {/* right */}
-        <div className="flexColStart f-right">
-          <span className="primaryText">Information </span>
-          <span className="secondaryText">145 New York, FL 5467, USA</span>
-
-          <div className="flexCenter f-menu">
-            <span>Property</span>
-            <span>Services</span>
-            <span>Product</span>
-            <span>About Us</span>
+          <div className="flex space-x-4">
+            <motion.span
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              className="hover:text-blue-300 cursor-pointer"
+            >
+              Property
+            </motion.span>
+            <motion.span
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              className="hover:text-blue-300 cursor-pointer"
+            >
+              Services
+            </motion.span>
+            <motion.span
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              className="hover:text-blue-300 cursor-pointer"
+            >
+              Product
+            </motion.span>
+            <motion.span
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              className="hover:text-blue-300 cursor-pointer"
+            >
+              About Us
+            </motion.span>
           </div>
-        </div>
+        </motion.div>
       </div>
-    </footer>
+    </motion.footer>
   );
 };
 

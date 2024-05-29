@@ -150,7 +150,7 @@ const Profile = () => {
         className="absolute inset-0 object-cover w-full h-full opacity-40"
       />
       <div className="absolute inset-0 bg-black bg-opacity-50"></div>
-      <div className="relative p-6 bg-white/20 rounded-lg shadow-lg max-w-lg w-full backdrop-blur-md">
+      <div className="relative p-6 bg-white/20 rounded-2xl shadow-lg max-w-lg w-full backdrop-blur-md">
         <h1 className="text-3xl font-semibold text-center my-7 text-white">
           User Profile
         </h1>
@@ -231,7 +231,7 @@ const Profile = () => {
 
         <button
           onClick={() => navigate("/user-property")}
-          className="text-blue-500 w-full mt-4 border border-blue-500 text-center rounded-full px-6 py-2 hover:bg-blue-500 transition-all duration-200 hover:text-white hover:scale-105"
+          className="text-blue-500 w-full mt-4 border-[3px] border-blue-500 text-center rounded-full px-6 py-2 hover:bg-blue-500 transition-all duration-200 hover:text-white hover:scale-105"
         >
           Show Property
         </button>

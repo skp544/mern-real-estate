@@ -5,7 +5,9 @@ import OutsideClickHandler from "react-outside-click-handler";
 import { Link, NavLink, useNavigate, useLocation } from "react-router-dom";
 
 import { ProfileMenu } from "../";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
+import { signOut } from "../../api/auth";
+import toast from "react-hot-toast";
 
 const Header = () => {
   const { currentUser } = useSelector((state) => state.user);
@@ -13,7 +15,6 @@ const Header = () => {
 
   const navigate = useNavigate();
   const location = useLocation(); // Get the current location object
-  const dispatch = useDispatch();
 
   const getMenuStyles = () => {
     if (document.documentElement.clientWidth <= 800) {
@@ -28,7 +29,6 @@ const Header = () => {
       return toast.error(response.message);
     }
 
-    dispatch(deleteUserSuccess());
     toast.success(response.message);
     localStorage.clear("token");
     navigate("/sign-in");
@@ -46,8 +46,14 @@ const Header = () => {
         </Link>
         <OutsideClickHandler onOutsideClick={() => setMenuOpened(false)}>
           <div className="flexCenter h-menu" style={getMenuStyles(menuOpened)}>
+            <NavLink
+              className={"duration-200 transition-all hover:text-blue-primary"}
+              to={"/about"}
+            >
+              About
+            </NavLink>
             <Link
-              to={`/properties?type=buy`}
+              to={`/properties?type=sale`}
               className={`${
                 isBuyActive ? "active" : ""
               } hover:text-blue-primary duration-200 transition-all`}

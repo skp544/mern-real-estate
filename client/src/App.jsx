@@ -9,6 +9,7 @@ import Profile from "./pages/Profile";
 import CreateProperty from "./pages/CreateProperty";
 import SearchPropertiesForLocation from "./pages/SearchPropertiesForLocation";
 import ShowUserProperty from "./pages/ShowUserProperty";
+import About from "./pages/About";
 
 const App = () => {
   return (
@@ -23,6 +24,7 @@ const App = () => {
           element={<SearchPropertiesForLocation />}
         />
         <Route path="/user-property" element={<ShowUserProperty />} />
+        <Route path="/about" element={<About />} />
         <Route path="/properties">
           <Route index element={<Properties />} />
           <Route path=":id" element={<Property />} />
