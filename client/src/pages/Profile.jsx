@@ -13,6 +13,7 @@ import { deleteListing } from "../api/listing";
 import { app } from "../firebase";
 import {
   deleteUserSuccess,
+  signInSuccess,
   signOutUserFailure,
   signOutUserStart,
   updateUserFailure,
@@ -88,6 +89,7 @@ const Profile = () => {
     if (!response.success) {
       return toast.error(response.message);
     }
+    dispatch(signInSuccess(response.updatedUser));
 
     toast.success(response.message);
   };

@@ -12,7 +12,6 @@ import {
   signInSuccess,
 } from "../redux/slices/userSlice";
 import OAuth from "../components/OAuth";
-import { Footer } from "../components";
 
 const Signin = () => {
   const [showPassword, setShowPassword] = useState(false);
