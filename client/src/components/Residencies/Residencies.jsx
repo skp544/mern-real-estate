@@ -51,7 +51,8 @@ const Residencies = () => {
           <div className="text-center">Loading...</div>
         ) : (
           <Swiper {...sliderSettings}>
-            <SliderButton />
+            {data.length > 4 && <SliderButton />}
+
             {data.map((card, index) => (
               <SwiperSlide key={card._id}>
                 <motion.div

@@ -75,19 +75,20 @@ const Profile = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(updateUserStart());
+
+    setLoading(true);
 
     const response = await updateUser(
       currentUser.id || currentUser._id,
       formData
     );
 
+    setLoading(false);
+
     if (!response.success) {
-      dispatch(updateUserFailure(response.message));
       return toast.error(response.message);
     }
 
-    dispatch(updateUserSuccess(response.updatedUser));
     toast.success(response.message);
   };
 

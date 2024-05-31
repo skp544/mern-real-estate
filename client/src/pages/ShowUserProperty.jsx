@@ -6,6 +6,7 @@ import Loading from "../components/Loading";
 import { motion } from "framer-motion";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { PropertyCard } from "../components";
 
 const ShowUserProperty = () => {
   const { currentUser } = useSelector((state) => state.user);
@@ -24,7 +25,7 @@ const ShowUserProperty = () => {
       return toast.error(res.message);
     }
 
-    if (res.listings === 0 || res.listing === undefined) {
+    if (res.listings === 0 || res.listings === undefined) {
       return toast.error("You have no properties");
     }
 

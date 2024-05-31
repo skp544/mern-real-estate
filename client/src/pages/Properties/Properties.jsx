@@ -1,16 +1,11 @@
 import "./properties.css";
-import { PropertyCard, SearchBar } from "../../components";
+import { PropertyCard } from "../../components";
 import { useEffect, useState } from "react";
-import {
-  getAllListings,
-  getByLocation,
-  getByType,
-  searchListing,
-} from "../../api/listing";
+import { searchListing } from "../../api/listing";
 import toast from "react-hot-toast";
 import { motion } from "framer-motion";
 import Loading from "../../components/Loading";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Properties = () => {
   const navigate = useNavigate();

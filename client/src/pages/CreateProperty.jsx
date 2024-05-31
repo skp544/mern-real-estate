@@ -141,7 +141,7 @@ const CreateProperty = () => {
     toast.success(message);
     setLoading(false);
 
-    navigate(`/listing/${listing._id}`);
+    navigate(`/properties/${listing._id}`);
   };
 
   return (
@@ -157,7 +157,8 @@ const CreateProperty = () => {
         alt="home"
         className="absolute inset-0 object-cover w-full h-full z-0 "
       />
-      <motion.div
+      <motion.form
+        onSubmit={handleSubmit}
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
         transition={{
@@ -171,7 +172,7 @@ const CreateProperty = () => {
         <h1 className="text-4xl font-bold text-center mb-8 text-gray-800">
           Create a Property
         </h1>
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <div className="space-y-6">
           <div className="space-y-4">
             <input
               type="text"
@@ -378,7 +379,7 @@ const CreateProperty = () => {
               ))}
             </div>
           </div>
-        </form>
+        </div>
         <div className="mt-6 flex justify-end">
           <button
             type="submit"
@@ -388,7 +389,7 @@ const CreateProperty = () => {
             {loading ? "Saving..." : "Create Listing"}
           </button>
         </div>
-      </motion.div>
+      </motion.form>
     </motion.div>
   );
 };
