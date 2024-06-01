@@ -17,6 +17,7 @@ import {
 } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { motion } from "framer-motion";
+import ContactUser from "../../components/ContactUser";
 
 const Property = () => {
   SwiperCore.use([Navigation]);
@@ -160,7 +161,7 @@ const Property = () => {
                     Contact Agent
                   </button>
                 )}
-              {/* {contact && <Contact listing={data} />} */}
+              {contact && <ContactUser listing={data} />}
             </motion.div>
 
             <motion.div
